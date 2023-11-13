@@ -25,7 +25,7 @@ class StoreCategoryRequest extends FormRequest
             'parent_id'         => ['required', 'integer'],
             'name'              => ['required', 'string'],
             'url'               => ['required', 'string', 'unique:categories,url'],
-            'discount'          => ['required', 'numeric'],
+            'discount'          => ['nullable', 'numeric'],
             'description'       => ['required', 'min:10', 'max:255'],
             'meta_title'        => ['required', 'min:10', 'max:255'],
             'meta_description'  => ['required', 'min:10', 'max:255'],
