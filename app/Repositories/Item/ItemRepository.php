@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Item;
 
+use App\Exceptions\GeneralJsonException;
 use App\Models\Item;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +26,8 @@ class ItemRepository extends BaseRepository
                 'is_best_seller'    => data_get($attributes, 'is_best_seller'),
                 'is_active'         => data_get($attributes, 'is_active'),
             ]);
+
+            throw_if(!$created, GeneralJsonException::class, 'Failed to create');
 
             return $created;
         });

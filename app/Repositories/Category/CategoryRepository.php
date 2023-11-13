@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Category;
 
+use App\Exceptions\GeneralJsonException;
 use App\Models\Category;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,8 @@ class CategoryRepository extends BaseRepository
                 'meta_keywords'     => data_get($attributes, 'meta_keywords'),
                 'is_active'         => data_get($attributes, 'is_active'),
             ]);
+
+            throw_if(!$created, GeneralJsonException::class, 'Failed to create');
 
             return $created;
         });
