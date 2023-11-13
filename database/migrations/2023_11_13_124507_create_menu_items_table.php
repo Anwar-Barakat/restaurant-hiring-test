@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate();
-            $table->double('discount', 8, 2);
-            $table->string('status')->default('pending');
-            $table->double('grand_price', 8, 2);
+            $table->foreignId('menu_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('item_id')->constrained()->cascadeOnUpdate();
+            $table->integer('qty');
+            $table->integer('total');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('menu_items');
     }
 };
