@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MenuItem extends Model
 {
@@ -16,4 +17,14 @@ class MenuItem extends Model
         'qty',
         'total',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function menuItems(): BelongsTo
+    {
+        return $this->belongsTo(Menu::class, 'menu_id');
+    }
 }
