@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->cascadeOnUpdate();
             $table->string('name')->unique();
             $table->float('price', 10, 2);
-            $table->boolean('discount')->comment('Percentage Discount')->default(0);
+            $table->double('discount', 8, 2)->comment('Percentage Discount')->default(0);
             $table->float('gst', 10, 2)->default(0);
             $table->longText('description');
             $table->string('meta_title');
