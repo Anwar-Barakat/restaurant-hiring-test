@@ -14,8 +14,8 @@ class IndexItemController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $pageSize = $request->page_size ?? 20;
-        $products = Item::query()->paginate($pageSize);
-        return ItemResource::collection($products);
+        $pageSize   = $request->page_size ?? 20;
+        $items      = Item::query()->paginate($pageSize);
+        return ItemResource::collection($items);
     }
 }

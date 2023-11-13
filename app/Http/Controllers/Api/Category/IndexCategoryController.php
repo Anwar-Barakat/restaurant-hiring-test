@@ -14,8 +14,8 @@ class IndexCategoryController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $pageSize = $request->page_size ?? 20;
-        $products = Category::query()->paginate($pageSize);
-        return CategoryResource::collection($products);
+        $pageSize   = $request->page_size ?? 20;
+        $categories = Category::query()->paginate($pageSize);
+        return CategoryResource::collection($categories);
     }
 }

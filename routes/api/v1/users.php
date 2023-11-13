@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\User\AuthController;
+use App\Http\Controllers\Api\User\Menu\IndexMenuController;
+use App\Http\Controllers\Api\User\Menu\ShowMenuController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,3 +14,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/refresh',             'refresh');
     Route::get('/profile',              'profile');
 });
+
+Route::get('/menus',                 IndexMenuController::class);
+Route::get('/menus/{menu}',          ShowMenuController::class);
