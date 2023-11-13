@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard'     => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -37,18 +37,16 @@ return [
 
     'guards' => [
         'web' => [
-            'driver'    => 'session',
-            'provider'  => 'users',
+            'driver' => 'session',
+            'provider' => 'users',
         ],
-
-        'admin' => [
-            'driver'    => 'session',
-            'provider'  => 'admins',
-        ],
-
         'api' => [
-            'driver'    => 'jwt',
-            'provider'  => 'users',
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
+        'admin' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
         ],
     ],
 
@@ -71,13 +69,13 @@ return [
 
     'providers' => [
         'users' => [
-            'driver'    => 'eloquent',
-            'model'     => App\Models\User::class,
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
         ],
 
         'admins' => [
-            'driver'    => 'eloquent',
-            'model'     => App\Models\Admin::class,
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
     ],
 
