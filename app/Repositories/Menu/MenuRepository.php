@@ -12,13 +12,14 @@ class MenuRepository extends BaseRepository
     public function create(array $attributes)
     {
         return DB::transaction(function () use ($attributes) {
-            $created = Menu::query()->create(['user_id' => auth()->id()]);
-
-            if ($item_ids = data_get($attributes, 'item_ids'))
-                $created->items()->sync($item_ids);
-
-            $created['discount']    =  $this->applyDiscounts($created->items);
-            $created['grand_price'] =  $this->getGrandPrice($created->items);
+            $created = Menu::query()->create([
+                'user_id'       => auth()->id(),
+                'item_id'       => data_get($attributes, 'item_id'),
+                'unit_price'    => data_get($attributes, 'unit_price'),
+                'qty'           => data_get($attributes, 'qty'),
+                'grand_total'   => data_get($attributes, 'grand_total'),
+                'discount'      => data_get($attributes, 'discount'),
+            ]);
 
             throw_if(!$created, GeneralJsonException::class, 'Failed to create');
 
@@ -31,32 +32,38 @@ class MenuRepository extends BaseRepository
         $discount = 0;
 
         foreach ($items as $item) {
-            $discount = $item->discount;
 
-            foreach ($items as $otherItem) {
-                if ($otherItem->discount < $discount) {
-                    $discount = $otherItem->discount;
-                }
-            }
-
-            if ($discount > 0) {
-                if ($item->subCategory && ($item->subCategory->discount < $discount))
-                    $item->subCategory->discount;
-
-                elseif ($item->category->discount < $discount)
-                    $item->category->discount;
+            if ($item->category->discount > 0) {
             }
         }
+
+        // foreach ($items as $item) {
+        //     $discount = $item->discount;
+
+        //     foreach ($items as $otherItem) {
+        //         if ($otherItem->discount < $discount) {
+        //             $discount = $otherItem->discount;
+        //         }
+        //     }
+
+        //     if ($discount > 0) {
+        //         if ($item->subCategory && ($item->subCategory->discount < $discount))
+        //             $item->subCategory->discount;
+
+        //         elseif ($item->category->discount < $discount)
+        //             $item->category->discount;
+        //     }
+        // }
         return $discount;
     }
 
     public function getGrandPrice($items)
     {
         $grandPrice = 0;
+        $discount   = $this->applyDiscounts($items) ?? 1;
+
         foreach ($items as $item)
             $grandPrice += $item->price;
-
-        $discount = $this->applyDiscounts($items) ?? 1;
 
         return $this->calculateDiscount($grandPrice, $discount);
     }

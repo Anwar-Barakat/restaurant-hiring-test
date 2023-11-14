@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('item_id')->constrained()->cascadeOnUpdate();
             $table->float('discount', 10, 2)->default(0);
+            $table->integer('qty');
+            $table->decimal('unit_price');
+            $table->decimal('grand_total');
             $table->string('status')->default('pending');
-            $table->double('grand_price', 8, 2)->default(0);
             $table->timestamps();
         });
     }

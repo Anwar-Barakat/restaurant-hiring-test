@@ -22,8 +22,11 @@ class StoreMenuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'item_ids'      => ['array'],
-            'item_ids.*'    => ['integer'],
+            'item_id'       => ['required'],
+            'discount'      => ['required'],
+            'qty'           => ['required'],
+            'unit_price'    => ['required'],
+            'grand_total'   => ['required'],
         ];
     }
 }

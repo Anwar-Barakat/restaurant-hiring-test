@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,8 +20,11 @@ class MenuFactory extends Factory
     {
         return [
             'user_id'       => User::inRandomOrder()->first()->id,
+            'item_id'       => Item::inRandomOrder()->first()->id,
+            'qty'           => rand(1, 5),
+            'unit_price'    => rand(30, 100),
             'discount'      => rand(1, 5),
-            'grand_price'   => rand(30, 500),
+            'grand_total'   => rand(100, 500),
         ];
     }
 }

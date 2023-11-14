@@ -14,9 +14,12 @@ class Menu extends Model
 
     protected $fillable = [
         'user_id',
+        'item_id',
         'discount',
+        'qty',
+        'unit_price',
+        'grand_total',
         'status',
-        'grand_price',
     ];
 
     const MENUSTATUS =  ['new', 'in_process', 'pending', 'shipped', 'delivered', 'cancelled'];
@@ -26,8 +29,8 @@ class Menu extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function items(): BelongsToMany
+    public function item(): BelongsTo
     {
-        return $this->belongsToMany(Item::class, 'item_menu');
+        return $this->belongsTo(Item::class, 'item_id');
     }
 }
