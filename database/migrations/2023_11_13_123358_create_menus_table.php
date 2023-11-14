@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate();
             $table->float('discount', 10, 2)->default(0);
             $table->string('status')->default('pending');
-            $table->double('grand_price', 8, 2);
+            $table->double('grand_price', 8, 2)->default(0);
             $table->timestamps();
         });
     }

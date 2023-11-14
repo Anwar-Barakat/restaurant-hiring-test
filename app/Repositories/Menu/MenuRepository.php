@@ -12,15 +12,13 @@ class MenuRepository extends BaseRepository
     public function create(array $attributes)
     {
         return DB::transaction(function () use ($attributes) {
-            $created = Menu::query()->create([
-                'user_id'       => auth()->id(),
-                'grand_price'   => data_get($attributes, 'grand_price'),
-            ]);
+            $created = Menu::query()->create(['user_id' => auth()->id()]);
 
             if ($item_ids = data_get($attributes, 'item_ids'))
                 $created->items()->sync($item_ids);
 
-            $created['discount'] =  $this->applyDiscounts($created->items);
+            $created['discount']    =  $this->applyDiscounts($created->items);
+            $created['grand_price'] =  $this->getGrandPrice($created->items);
 
             throw_if(!$created, GeneralJsonException::class, 'Failed to create');
 
@@ -50,5 +48,22 @@ class MenuRepository extends BaseRepository
             }
         }
         return $discount;
+    }
+
+    public function getGrandPrice($items)
+    {
+        $grandPrice = 0;
+        foreach ($items as $item)
+            $grandPrice += $item->price;
+
+        $discount = $this->applyDiscounts($items) ?? 1;
+
+        return $this->calculateDiscount($grandPrice, $discount);
+    }
+
+    public static function calculateDiscount($price, $discount)
+    {
+        if (is_numeric($discount))
+            return $price - ($price * $discount / 100);
     }
 }
