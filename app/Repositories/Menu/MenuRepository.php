@@ -19,7 +19,7 @@ class MenuRepository extends BaseRepository
             ]);
 
             if ($item_ids = data_get($attributes, 'item_ids'))
-                $created->items()->save($item_ids);
+                $created->items()->sync($item_ids);
 
             throw_if(!$created, GeneralJsonException::class, 'Failed to create');
 
