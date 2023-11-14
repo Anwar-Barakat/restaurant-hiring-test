@@ -3,22 +3,27 @@
 namespace App\Repositories\Menu;
 
 use App\Exceptions\GeneralJsonException;
+use App\Models\Item;
 use App\Models\Menu;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
 class MenuRepository extends BaseRepository
 {
+    public int $discount;
+
     public function create(array $attributes)
     {
         return DB::transaction(function () use ($attributes) {
+            $item = Item::find(data_get($attributes, 'item_id'));
+
             $created = Menu::query()->create([
                 'user_id'       => auth()->id(),
-                'item_id'       => data_get($attributes, 'item_id'),
-                'unit_price'    => data_get($attributes, 'unit_price'),
                 'qty'           => data_get($attributes, 'qty'),
-                'grand_total'   => data_get($attributes, 'grand_total'),
-                'discount'      => data_get($attributes, 'discount'),
+                'item_id'       => data_get($attributes, 'item_id'),
+                'unit_price'    => $item->price,
+                'discount'      => $this->getDiscount($item, data_get($attributes, 'discount')),
+                'grand_total'   => $this->getGrandTotal($item, data_get($attributes, 'qty')),
             ]);
 
             throw_if(!$created, GeneralJsonException::class, 'Failed to create');
@@ -27,50 +32,37 @@ class MenuRepository extends BaseRepository
         });
     }
 
-    public function applyDiscounts($items)
+    public function getDiscount(Item $item, $menuDiscount)
     {
-        $discount = 0;
+        $this->discount = 0;
 
-        foreach ($items as $item) {
+        switch (true) {
+            case $item->category && $item->category->discount > 0:
+                $this->discount = $item->category->discount;
+                break;
 
-            if ($item->category->discount > 0) {
-            }
+            case $item->subCategory && $item->subCategory->discount > 0:
+                $this->discount = $item->subCategory->discount;
+                break;
+
+            case $item->discount > 0:
+                $this->discount = $item->discount;
+                break;
+
+            default:
+                $this->discount = $menuDiscount;
+                break;
         }
-
-        // foreach ($items as $item) {
-        //     $discount = $item->discount;
-
-        //     foreach ($items as $otherItem) {
-        //         if ($otherItem->discount < $discount) {
-        //             $discount = $otherItem->discount;
-        //         }
-        //     }
-
-        //     if ($discount > 0) {
-        //         if ($item->subCategory && ($item->subCategory->discount < $discount))
-        //             $item->subCategory->discount;
-
-        //         elseif ($item->category->discount < $discount)
-        //             $item->category->discount;
-        //     }
-        // }
-        return $discount;
+        return $this->discount;
     }
 
-    public function getGrandPrice($items)
+    public function getGrandTotal(Item $item, int $qty)
     {
-        $grandPrice = 0;
-        $discount   = $this->applyDiscounts($items) ?? 1;
+        $grandTotal = 0;
+        $grandTotal = $item->price * $qty;
+        if ($this->discount > 0)
+            $grandTotal -= ($grandTotal * $this->discount) / 100;
 
-        foreach ($items as $item)
-            $grandPrice += $item->price;
-
-        return $this->calculateDiscount($grandPrice, $discount);
-    }
-
-    public static function calculateDiscount($price, $discount)
-    {
-        if (is_numeric($discount))
-            return $price - ($price * $discount / 100);
+        return $grandTotal;
     }
 }

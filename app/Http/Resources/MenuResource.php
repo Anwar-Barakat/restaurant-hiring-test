@@ -18,9 +18,11 @@ class MenuResource extends JsonResource
             'id'                => $this->id,
             'user'              => $this->user,
             'discount'          => $this->discount,
+            'unit_price'        => $this->unit_price,
+            'qty'               => $this->qty,
             'status'            => $this->status,
-            'grand_price'       => $this->grand_price,
-            'item'             => $this->item,
+            'grand_total'       => $this->grand_total,
+            'item'              => $this->item,
         ];
     }
 }
