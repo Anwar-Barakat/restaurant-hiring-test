@@ -14,12 +14,13 @@ class MenuRepository extends BaseRepository
         return DB::transaction(function () use ($attributes) {
             $created = Menu::query()->create([
                 'user_id'       => auth()->id(),
-                'discount'      => data_get($attributes, 'discount'),
                 'grand_price'   => data_get($attributes, 'grand_price'),
             ]);
 
             if ($item_ids = data_get($attributes, 'item_ids'))
                 $created->items()->sync($item_ids);
+
+            $created['discount'] = Menu::applyDiscount($created->items());
 
             throw_if(!$created, GeneralJsonException::class, 'Failed to create');
 

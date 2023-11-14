@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'name'          => $this->name,
             'email'         => $this->email,
             'created at'    => Carbon::parse($this->created_at)->format('Y-m-d'),
-            'menus'         => $this->load(['menus'])
+            'menus'         => $this->menus
         ];
     }
 }

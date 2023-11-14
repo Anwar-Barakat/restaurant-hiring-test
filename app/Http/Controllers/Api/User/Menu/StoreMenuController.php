@@ -17,7 +17,7 @@ class StoreMenuController extends Controller
     public function __invoke(StoreMenuRequest $request, MenuRepository $repository)
     {
         $created = $repository->create($request->only([
-            'grand_price', 'item_ids',
+            'grand_price', 'item_ids', 'discount'
         ]));
 
         return new JsonResponse([

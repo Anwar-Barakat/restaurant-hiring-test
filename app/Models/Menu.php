@@ -30,4 +30,9 @@ class Menu extends Model
     {
         return $this->belongsToMany(Item::class, 'item_menu');
     }
+
+    public static function applyDiscount($items)
+    {
+        return $items;
+    }
 }

@@ -22,7 +22,6 @@ class StoreMenuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'discount'      => ['nullable', 'numeric'],
             'grand_price'   => ['required', 'numeric'],
             'item_ids'      => ['array'],
             'item_ids.*'    => ['integer'],

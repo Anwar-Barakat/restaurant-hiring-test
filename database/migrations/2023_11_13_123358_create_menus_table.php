@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate();
-            $table->double('discount', 8, 2);
+            $table->float('discount', 10, 2)->default(0);
             $table->string('status')->default('pending');
             $table->double('grand_price', 8, 2);
             $table->timestamps();
