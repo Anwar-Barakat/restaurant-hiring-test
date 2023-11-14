@@ -28,9 +28,7 @@ class ItemResource extends JsonResource
             'is_best_seller'    => $this->is_best_seller ? 'Is Best Seller' : '-',
             'is_active'         => $this->active ? 'Active' : 'Not-active',
 
-            'category'          => $this->load('category:id,name,parent_id'),
-            'parentCategory'    => $this->category->parentCategory->name ?? 'Not Found',
-            'subCategories'     => $this->category->load('subCategories:id,name') ?? 'Not Found',
+            'category'          => new CategoryResource($this->category),
         ];
     }
 }

@@ -25,10 +25,10 @@ class CategoryResource extends JsonResource
             'meta_description'  => $this->meta_description,
             'meta_keywords'     => $this->meta_keywords,
             'is_active'         => $this->is_active ? 'Active' : 'Not-active',
-            'created_at'        => Carbon::parse($this->created_at)->format('Y-m-d'),
-            
-            'parent_category'       => $this->parentCategory ? $this->parentCategory->name : 'Parent Category',
-            'children_categories'   => $this->subCategories ?? '-',
+            'createdAt'         => Carbon::parse($this->created_at)->format('Y-m-d'),
+
+            'parent_category'       => $this->parentCategory,
+            'children_categories'   => $this->subCategories,
         ];
     }
 }

@@ -16,13 +16,13 @@ class MenuResource extends JsonResource
     {
         return [
             'id'                => $this->id,
-            'user'              => $this->user,
+            'user'              => new UserResource($this->whenLoaded('user')),
             'discount'          => $this->discount,
             'unit_price'        => $this->unit_price,
             'qty'               => $this->qty,
             'status'            => $this->status,
             'grand_total'       => $this->grand_total,
-            'item'              => $this->item,
+            'item'              => new ItemResource($this->item),
         ];
     }
 }
