@@ -20,7 +20,7 @@ class MenuResource extends JsonResource
             'discount'          => $this->discount,
             'status'            => $this->status,
             'grand_price'       => $this->grand_price,
-            'items'             => $this->items()->count() > 0 ? $this->load(['items']) : 'No Items Yet'
+            'items'             => $this->items,
         ];
     }
 }

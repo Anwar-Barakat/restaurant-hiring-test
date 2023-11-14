@@ -36,6 +36,11 @@ class Item extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function subCategory(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id')->where('parent_id', '!=', 0);
+    }
+
     public function menus()
     {
         return $this->belongsToMany(Menu::class, 'item_menu');

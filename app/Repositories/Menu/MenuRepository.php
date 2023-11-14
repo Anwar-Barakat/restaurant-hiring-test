@@ -20,11 +20,35 @@ class MenuRepository extends BaseRepository
             if ($item_ids = data_get($attributes, 'item_ids'))
                 $created->items()->sync($item_ids);
 
-            $created['discount'] = Menu::applyDiscount($created->items());
+            $created['discount'] =  $this->applyDiscounts($created->items);
 
             throw_if(!$created, GeneralJsonException::class, 'Failed to create');
 
             return $created;
         });
+    }
+
+    public function applyDiscounts($items)
+    {
+        $discount = 0;
+
+        foreach ($items as $item) {
+            $discount = $item->discount;
+
+            foreach ($items as $otherItem) {
+                if ($otherItem->discount < $discount) {
+                    $discount = $otherItem->discount;
+                }
+            }
+
+            if ($discount > 0) {
+                if ($item->subCategory && ($item->subCategory->discount < $discount))
+                    $item->subCategory->discount;
+
+                elseif ($item->category->discount < $discount)
+                    $item->category->discount;
+            }
+        }
+        return $discount;
     }
 }
