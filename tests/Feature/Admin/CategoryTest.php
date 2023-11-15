@@ -28,7 +28,7 @@ class CategoryTest extends TestCase
         Category::factory(10)->create();
 
         $response = $this->actingAs($this->admin)
-            ->getJson('/api/v1/categories');
+            ->getJson('/api/v1/admin/categories');
 
         $response->assertStatus(200);
         $this->assertEquals(11, count($response->json()['data']));
@@ -37,7 +37,7 @@ class CategoryTest extends TestCase
     public function test_api_fetch_single_category()
     {
         $response = $this->actingAs($this->admin)
-            ->getJson('/api/v1/categories/' . $this->category->id)
+            ->getJson('/api/v1/admin/categories/' . $this->category->id)
             ->assertOk()
             ->json();
 
@@ -59,7 +59,7 @@ class CategoryTest extends TestCase
         ];
 
         $response = $this->actingAs($this->admin)
-            ->postJson('/api/v1/categories', $category)
+            ->postJson('/api/v1/admin/categories', $category)
             ->assertSuccessful();
 
         $this->assertDatabaseHas('categories', ['name' => 'Appetizers']);
@@ -70,12 +70,12 @@ class CategoryTest extends TestCase
     {
         $category = ['name'  => ''];
         $response = $this->actingAs($this->admin)
-            ->postJson('/api/v1/categories', $category)
+            ->postJson('/api/v1/admin/categories', $category)
             ->assertUnprocessable();
         $response->assertJsonValidationErrors(['name']);
     }
 
-    public function test_a_category_can_has_many_items()
+    public function test_category_can_has_many_items()
     {
         $category   = $this->category;
         $item       = Item::factory()->create(['category_id' => $category->id]);

@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/admin/items')->group(function () {
 
-    // Route::middleware(['auth:admin'])->group(function () {
+    Route::middleware(['auth:admin'])->group(function () {
 
-    Route::get('/',         IndexItemController::class);
-    Route::post('/',        StoreItemController::class);
-    Route::get('/{item}',   ShowItemController::class);
-    // });
+        Route::get('/',         IndexItemController::class);
+        Route::post('/',        StoreItemController::class);
+        Route::get('/{item}',   ShowItemController::class);
+    });
 });

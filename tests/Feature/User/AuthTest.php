@@ -19,7 +19,6 @@ class AuthTest extends TestCase
         $this->user = $this->createUser();
     }
 
-
     public function test_api_user_can_register()
     {
         $user = [

@@ -24,6 +24,7 @@ class ItemTest extends TestCase
         $this->category     = Category::factory()->create();
         $this->item         = Item::factory()->create();
     }
+
     public function test_api_fetch__all_items_data(): void
     {
         $this->category;
@@ -71,12 +72,13 @@ class ItemTest extends TestCase
     public function test_api_item_invalid_store_returns_error()
     {
         $item = ['name'  => ''];
-        $response = $this->postJson('/api/v1/admin/items', $item)
+        $response = $this->actingAs($this->admin)
+            ->postJson('/api/v1/admin/items', $item)
             ->assertUnprocessable();
         $response->assertJsonValidationErrors(['name']);
     }
 
-    public function test_an_item_can_belong_to_a_category()
+    public function test_an_item_belong_to_a_category()
     {
         $category   = $this->category;
         $item       = Item::factory()->create(['category_id' => $category->id]);
