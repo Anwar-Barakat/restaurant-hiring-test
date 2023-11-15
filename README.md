@@ -7,8 +7,9 @@ A restaurant menu featuring categories, subcategories, and items, along with sup
 
 ### Features
 
-- Conducted unit testing to ensure the functionality of each module.
-- Implement Repository Design Pattern.
+- **Conducted unit testing to ensure the functionality of each module.**
+- **Implement Repository Design Pattern.**
+- Taking a backup of the database
 - Create menus with categories, subcategories, and items.
 - Implement discounts for menus.
 - Three discount types: all menu, category/subcategory, and item.
