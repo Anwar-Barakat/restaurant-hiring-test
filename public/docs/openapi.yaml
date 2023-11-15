@@ -1,0 +1,631 @@
+openapi: 3.0.3
+info:
+  title: 'Restaurant App'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/user:
+    get:
+      summary: ''
+      operationId: getApiUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/admin/items:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: integer
+                  description: ''
+                  example: 6
+                name:
+                  type: string
+                  description: ''
+                  example: natus
+                price:
+                  type: number
+                  description: ''
+                  example: 685.694935
+                discount:
+                  type: number
+                  description: ''
+                  example: 154155.9994
+                gst:
+                  type: number
+                  description: ''
+                  example: 14.1
+                description:
+                  type: string
+                  description: 'Must be at least 10 characters. Must not be greater than 255 characters.'
+                  example: 'Et et velit libero quibusdam.'
+                meta_title:
+                  type: string
+                  description: 'Must be at least 10 characters. Must not be greater than 255 characters.'
+                  example: qiyccskhtapsdadacosthe
+                meta_description:
+                  type: string
+                  description: 'Must be at least 10 characters. Must not be greater than 255 characters.'
+                  example: lunlktclptnrhtmbvjhu
+                meta_keywords:
+                  type: string
+                  description: 'Must be at least 10 characters. Must not be greater than 255 characters.'
+                  example: xrliqaghmpkt
+                is_featured:
+                  type: boolean
+                  description: ''
+                  example: false
+                is_best_seller:
+                  type: boolean
+                  description: ''
+                  example: false
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: true
+              required:
+                - category_id
+                - name
+                - price
+                - description
+                - meta_title
+                - meta_description
+                - meta_keywords
+                - is_featured
+                - is_best_seller
+                - is_active
+      security: []
+  '/api/v1/admin/items/{item_id}':
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: item_id
+        description: 'The ID of the item.'
+        example: 10
+        required: true
+        schema:
+          type: integer
+  /api/v1/admin/menus:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/v1/admin/menus/{menu_id}':
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: menu_id
+        description: 'The ID of the menu.'
+        example: 5
+        required: true
+        schema:
+          type: integer
+  /api/v1/login:
+    post:
+      summary: ''
+      operationId: postApiV1Login
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: carlie.gutmann@example.com
+                password:
+                  type: string
+                  description: ''
+                  example: 'z.9E)Ge>asX2Z5fY&D5/'
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/register:
+    post:
+      summary: ''
+      operationId: postApiV1Register
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must be at least 3 characters. Must not be greater than 50 characters.'
+                  example: tjorzghgciz
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: kristian15@example.org
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters. Must not be greater than 25 characters.'
+                  example: '5*?G$J'
+                password_confirmation:
+                  type: string
+                  description: 'The value and <code>password</code> must match. Must be at least 8 characters. Must not be greater than 55 characters.'
+                  example: c
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+      security: []
+  /api/v1/logout:
+    post:
+      summary: ''
+      operationId: postApiV1Logout
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/refresh:
+    post:
+      summary: ''
+      operationId: postApiV1Refresh
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/profile:
+    get:
+      summary: ''
+      operationId: getApiV1Profile
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/menus:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                item_id:
+                  type: integer
+                  description: ''
+                  example: 17
+                discount:
+                  type: string
+                  description: ''
+                  example: ea
+                qty:
+                  type: integer
+                  description: ''
+                  example: 18
+              required:
+                - item_id
+                - discount
+                - qty
+      security: []
+  '/api/v1/menus/{menu_id}':
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: menu_id
+        description: 'The ID of the menu.'
+        example: 4
+        required: true
+        schema:
+          type: integer
+  /api/v1/admin/categories:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parent_id:
+                  type: integer
+                  description: ''
+                  example: 6
+                name:
+                  type: string
+                  description: ''
+                  example: ipsam
+                url:
+                  type: string
+                  description: ''
+                  example: 'https://erdman.com/assumenda-harum-nesciunt-quasi-consequuntur-quibusdam-ipsa.html'
+                discount:
+                  type: number
+                  description: ''
+                  example: 6614059.239185
+                description:
+                  type: string
+                  description: 'Must be at least 10 characters. Must not be greater than 255 characters.'
+                  example: 'Vel doloremque voluptates quis maiores et sunt.'
+                meta_title:
+                  type: string
+                  description: 'Must be at least 10 characters. Must not be greater than 255 characters.'
+                  example: duzkykjvukoi
+                meta_description:
+                  type: string
+                  description: 'Must be at least 10 characters. Must not be greater than 255 characters.'
+                  example: dijuwdrbmtenvekvp
+                meta_keywords:
+                  type: string
+                  description: 'Must be at least 10 characters. Must not be greater than 255 characters.'
+                  example: wcsnstp
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: true
+              required:
+                - parent_id
+                - name
+                - url
+                - description
+                - meta_title
+                - meta_description
+                - meta_keywords
+                - is_active
+      security: []
+  '/api/v1/admin/categories/{category_id}':
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: category_id
+        description: 'The ID of the category.'
+        example: 5
+        required: true
+        schema:
+          type: integer
+  /api/v1/admin/login:
+    post:
+      summary: ''
+      operationId: postApiV1AdminLogin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: keith.leuschke@example.org
+                password:
+                  type: string
+                  description: ''
+                  example: Dz/H4bI
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/admin/register:
+    post:
+      summary: ''
+      operationId: postApiV1AdminRegister
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must be at least 3 characters. Must not be greater than 50 characters.'
+                  example: nfk
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: botsford.stacey@example.org
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters. Must not be greater than 25 characters.'
+                  example: "?X79LaQz[@Q@jHj0'9"
+                password_confirmation:
+                  type: string
+                  description: 'The value and <code>password</code> must match. Must be at least 8 characters. Must not be greater than 55 characters.'
+                  example: tikzgnofyirqcw
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+      security: []
+  /api/v1/admin/logout:
+    post:
+      summary: ''
+      operationId: postApiV1AdminLogout
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/admin/refresh:
+    post:
+      summary: ''
+      operationId: postApiV1AdminRefresh
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/admin/profile:
+    get:
+      summary: ''
+      operationId: getApiV1AdminProfile
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''
