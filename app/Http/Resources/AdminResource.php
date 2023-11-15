@@ -19,7 +19,7 @@ class AdminResource extends JsonResource
             'id'            => $this->id,
             'name'          => $this->name,
             'email'         => $this->email,
-            'created at'    => Carbon::parse($this->created_at)->format('Y-m-d'),
+            'createdAt'     => Carbon::parse($this->created_at)->format('Y-m-d'),
         ];
     }
 }

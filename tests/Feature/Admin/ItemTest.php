@@ -75,4 +75,11 @@ class ItemTest extends TestCase
             ->assertUnprocessable();
         $response->assertJsonValidationErrors(['name']);
     }
+
+    public function test_an_item_can_belong_to_a_category()
+    {
+        $category   = $this->category;
+        $item       = Item::factory()->create(['category_id' => $category->id]);
+        $this->assertInstanceOf(Category::class, $item->category);
+    }
 }

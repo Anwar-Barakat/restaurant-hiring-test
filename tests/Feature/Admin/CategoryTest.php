@@ -4,6 +4,7 @@ namespace Tests\Feature\Admin;
 
 use App\Models\Admin;
 use App\Models\Category;
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -25,11 +26,10 @@ class CategoryTest extends TestCase
     public function test_api_return_categories_list()
     {
         Category::factory(10)->create();
-        // action
+
         $response = $this->actingAs($this->admin)
             ->getJson('/api/v1/categories');
 
-        // assertion
         $response->assertStatus(200);
         $this->assertEquals(11, count($response->json()['data']));
     }
@@ -69,8 +69,16 @@ class CategoryTest extends TestCase
     public function test_api_category_invalid_store_returns_error()
     {
         $category = ['name'  => ''];
-        $response = $this->postJson('/api/v1/categories', $category)
+        $response = $this->actingAs($this->admin)
+            ->postJson('/api/v1/categories', $category)
             ->assertUnprocessable();
         $response->assertJsonValidationErrors(['name']);
+    }
+
+    public function test_a_category_can_has_many_items()
+    {
+        $category   = $this->category;
+        $item       = Item::factory()->create(['category_id' => $category->id]);
+        $this->assertInstanceOf(Item::class, $category->items->first());
     }
 }
