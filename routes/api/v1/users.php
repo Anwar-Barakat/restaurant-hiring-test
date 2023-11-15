@@ -16,6 +16,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/profile',              'profile');
 });
 
-Route::get('/menus',                 IndexMenuController::class);
-Route::get('/menus/{menu}',          ShowMenuController::class);
-Route::post('/menus',                StoreMenuController::class);
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/menus',                 IndexMenuController::class);
+    Route::get('/menus/{menu}',          ShowMenuController::class);
+    Route::post('/menus',                StoreMenuController::class);
+});

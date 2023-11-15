@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin;
 
 use App\Models\Admin;
 use App\Models\Category;
@@ -12,27 +12,26 @@ class CategoryTest extends TestCase
 {
     use RefreshDatabase;
 
-    private User $user;
-    private Admin $admin;
-    private Category $category;
+    protected Admin $admin;
+    protected Category $category;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->user     = $this->createUser();
         $this->admin    = $this->createAdmin();
         $this->category = Category::factory()->create();
     }
 
     public function test_api_return_categories_list()
     {
+        Category::factory(10)->create();
         // action
         $response = $this->actingAs($this->admin)
             ->getJson('/api/v1/categories');
 
         // assertion
         $response->assertStatus(200);
-        $this->assertEquals(1, count($response->json()['data']));
+        $this->assertEquals(11, count($response->json()['data']));
     }
 
     public function test_api_fetch_single_category()
@@ -41,9 +40,9 @@ class CategoryTest extends TestCase
             ->getJson('/api/v1/categories/' . $this->category->id)
             ->assertOk()
             ->json();
+
         $this->assertEquals($this->category->name, $response['data']['name']);
     }
-
 
     public function test_api_store_new_category()
     {
