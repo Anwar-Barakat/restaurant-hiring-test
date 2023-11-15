@@ -38,7 +38,7 @@ class Item extends Model
 
     public function subCategory(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'category_id')->where('parent_id', '!=', 0);
+        return $this->belongsTo(Category::class, 'category_id')->select('id', 'parent_id', 'name', 'url')->where('parent_id', '!=', 0);
     }
 
     public function menus()
