@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('qty');
             $table->decimal('unit_price');
             $table->decimal('grand_total');
-            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

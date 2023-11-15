@@ -22,9 +22,7 @@ class EventServiceProvider extends ServiceProvider
         ],
     ];
 
-    protected $observers = [
-        Menu::class         => MenuObserver::class,
-    ];
+    protected $observers = [];
 
     /**
      * Register any events for your application.

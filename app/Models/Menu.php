@@ -19,10 +19,7 @@ class Menu extends Model
         'qty',
         'unit_price',
         'grand_total',
-        'status',
     ];
-
-    const MENUSTATUS =  ['new', 'in_process', 'pending', 'shipped', 'delivered', 'cancelled'];
 
     public function user(): BelongsTo
     {
